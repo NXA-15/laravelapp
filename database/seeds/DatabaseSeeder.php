@@ -20,8 +20,8 @@ class DatabaseSeeder extends Seeder
 
         });
 
-         // Create 5 records of users
-        factory(App\User::class, 5)->create();
+         // Create 10 records of users
+        factory(App\User::class, 10)->create();
 
     }
 }
