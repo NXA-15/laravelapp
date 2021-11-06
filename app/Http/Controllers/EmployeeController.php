@@ -148,5 +148,46 @@ class EmployeeController extends Controller
         return response()->json(['success'=>'Employee deleted successfully']);
     }
 
+    /**
+     * Show the form for viewing the specified resource.
+     */
+    public function show($id)
+    {
+        $employee = new Employee;
+        $data = $employee->findData($id);
+        $company = Employee::find($id)->company;
+     
+        $html = '
+        <b>Name:</b>
+        <p>'.$data->name.'</p>
+        <b>Photo:</b><br>
+        <img src="'.$data->photo.'" border="0" width="100" class="img-rounded" align="center" />
+        <br>
+        <b>Email:</b>
+        <p>'.$data->email.'</p>
+        <b>Phone:</b>
+        <p>'.$data->phone_number.'</p>
+        <b>Address:</b>
+        <p>'.$data->address.'</p>
+        <b>Detail Company:</b>
+        <p>'.$company->name.'<br>
+        '.$company->address.' phone :' .$company->phone_number.'<br>
+        '.$company->email.'<br>
+        '.$company->website.'</p>
+                
+                ';
+
+        return response()->json(['html'=>$html]);
+    }
+
+    /**
+     * get the specified resource.
+     */
+    public function postForm(Request $request)
+    {
+       $data = Employee::where('company_id',$request->company_id)->get();
+       return response()->json($data);
+    }
+
     
 }

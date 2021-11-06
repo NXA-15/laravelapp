@@ -143,6 +143,39 @@
     </div>
 </div>
 
+<!-- Information modal -->
+<div class="modal" id="DetailUserModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Company Information</h4>
+                <button type="button" class="close infoClose" data-dismiss="modal">&times;</button>
+            </div>
+            <!-- Modal body -->
+            <div class="modal-body">
+              
+                <div id="DetailUserModalBody">
+
+                <b>Name:</b>
+                <p id="name-info"></p>
+                <b>Email:</b>
+                <p id="email-info"></p>
+
+                <b>Employee List:</b>
+                <div id="showtable"></div> 
+
+                                
+                </div>
+            </div>
+            <!-- Modal footer -->
+            <div class="modal-footer">
+            <button type="button" class="btn btn-default infoClose" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <!-- -------------------------------------->
 
      
@@ -286,6 +319,57 @@ $(document).ready(function() {
                     $('#DeleteUserModal').modal('hide');
                     toastr.info(data.success);
                     table.ajax.reload();
+                }
+            });
+        });
+
+        // Get single company in InfoModel
+        $('.infoClose').on('click', function(){
+            $('#DetailUserModal').hide();
+        });
+        $('body').on('click', '#getDetailUserData', function(e) {
+            // e.preventDefault();
+            id = $(this).data('id');
+            $.ajax({
+                url: "company/"+id,
+                method: 'GET',
+                // data: {
+                //     id: id,
+                // },
+                success: function(response) {
+                    //console.log(result);
+                    //$('#DetailUserModalBody').html(result.html);
+                    let company = response.company;
+                    $("#name-info").html(company.name);
+                    $("#email-info").html(company.email);
+                    $('#DetailUserModal').show();
+                    
+                    //retrive record into table
+                    var op ="";
+                    var cid = company.id;
+                    $.ajax({
+                    type:'post',
+                    url: "{{route('employee.postForm')}}",
+                    data:{
+                            'company_id': cid
+                        },
+                        success: function(data2){
+                        op+='<table class="table table-striped">';
+                        op+='<tr><th>No</th><th>Employee Name</th><th>Employee Email</th></tr>';
+                        for(var i=0;i<data2.length;i++){
+                        op+='<tr>';
+                        op+='<td>'+(i+1)+'</td><td>'+data2[i].name+'</td><td>'+data2[i].email+'</td></tr>';
+                        }
+                        op+='</table>';
+                        $('#showtable').html(op);
+                        //console.log("Data Correctly Processed");
+                        console.log(data2);
+                        },
+                        error: function(){
+                        console.log("Error Occurred");
+                        }
+                    });
+  
                 }
             });
         });

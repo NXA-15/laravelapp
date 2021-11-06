@@ -150,6 +150,30 @@
     </div>
 </div>
 
+<!-- Information modal -->
+<div class="modal" id="DetailUserModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Employee Information</h4>
+                <button type="button" class="close infoClose" data-dismiss="modal">&times;</button>
+            </div>
+            <!-- Modal body -->
+            <div class="modal-body">
+              
+                <div id="DetailUserModalBody">
+                    
+                </div>
+            </div>
+            <!-- Modal footer -->
+            <div class="modal-footer">
+            <button type="button" class="btn btn-default infoClose" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <!-- -------------------------------------->
 
      
@@ -350,6 +374,28 @@ $(document).ready(function() {
                     $('#DeleteUserModal').modal('hide');
                     toastr.info(data.success);
                     table.ajax.reload();
+                }
+            });
+        });
+        
+        // Get single employee in InfoModel
+        $('.infoClose').on('click', function(){
+            $('#DetailUserModal').hide();
+        });
+        $('body').on('click', '#getDetailUserData', function(e) {
+            // e.preventDefault();
+            id = $(this).data('id');
+            $.ajax({
+                url: "employee/"+id,
+                method: 'GET',
+                // data: {
+                //     id: id,
+                // },
+                success: function(result) {
+                    console.log(result);
+                    $('#DetailUserModalBody').html(result.html);
+                    $('#DetailUserModal').show();
+  
                 }
             });
         });

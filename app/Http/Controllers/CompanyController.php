@@ -157,4 +157,15 @@ class CompanyController extends Controller
   
         return response()->json($response);
      }
+
+       /**
+     * Show the form for viewing the specified resource.
+     */
+    public function show($id)
+    {
+        $company = new Company;
+        $data = $company->findData($id);
+      
+        return response()->json([ 'company' => $data]);
+    }
 }
