@@ -216,7 +216,7 @@ $(document).ready(function() {
                 success: function(result) {
                     console.log(result);
                     $('#EditUserModalBody').html(result.html);
-                    $('#EditUserModal').show();
+                    $('#EditUserModal').modal('show');
                 }
             });
         });

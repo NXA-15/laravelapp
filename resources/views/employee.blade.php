@@ -298,7 +298,7 @@ $(document).ready(function() {
                 success: function(result) {
                     console.log(result);
                     $('#EditUserModalBody').html(result.html);
-                    $('#EditUserModal').show();
+                    $('#EditUserModal').modal('show');
                     $('.itemNamex').select2(
                         {
                             ajax: { 
@@ -377,7 +377,7 @@ $(document).ready(function() {
                 }
             });
         });
-        
+
         // Get single employee in InfoModel
         $('.infoClose').on('click', function(){
             $('#DetailUserModal').hide();
@@ -394,7 +394,7 @@ $(document).ready(function() {
                 success: function(result) {
                     console.log(result);
                     $('#DetailUserModalBody').html(result.html);
-                    $('#DetailUserModal').show();
+                    $('#DetailUserModal').modal('show');
   
                 }
             });

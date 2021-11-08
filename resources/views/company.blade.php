@@ -266,7 +266,7 @@ $(document).ready(function() {
                 success: function(result) {
                     console.log(result);
                     $('#EditUserModalBody').html(result.html);
-                    $('#EditUserModal').show();
+                    $('#EditUserModal').modal('show');
                 }
             });
         });
@@ -342,7 +342,7 @@ $(document).ready(function() {
                     let company = response.company;
                     $("#name-info").html(company.name);
                     $("#email-info").html(company.email);
-                    $('#DetailUserModal').show();
+                    $('#DetailUserModal').modal('show');
                     
                     //retrive record into table
                     var op ="";
