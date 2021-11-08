@@ -270,12 +270,12 @@ return [
             'url'  => 'user',
             'icon' => 'fas fa-fw fa-user',
         ],
-        ['header' => 'API'],
+   /*      ['header' => 'API'],
         [
             'text' => 'alpha',
             'url'  => 'alpha',
             'icon' => 'fas fa-fw fa-user',
-        ],
+        ], */
         
     ],
 
