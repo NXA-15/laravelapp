@@ -295,7 +295,7 @@ $(document).ready(function() {
                     } else {
                         $('.alert-danger').hide();
                         //$('.alert-success').show();
-                        $('#EditUserModal').hide();
+                        $('#EditUserModal').modal('hide');
                         toastr.info(result.success);
                         table.ajax.reload();
                     }
