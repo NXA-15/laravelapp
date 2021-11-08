@@ -15,9 +15,9 @@ class EmployeeController extends Controller
      */
     public function index(Request $request)
     {
+        $data = Employee::select(['id','name','email','phone_number','photo','address','company_id'])->with(['company']);
         if ($request->ajax()) {
             //$data = Employee::latest()->get();
-            $data = Employee::select(['id','name','email','phone_number','photo','address','company_id'])->with(['company']);
             return Datatables::of($data)
                     ->addIndexColumn()
                     ->addColumn('image', function ($data) {
@@ -31,7 +31,7 @@ class EmployeeController extends Controller
                     ->make(true);
         }
       
-        return view('employee',compact('employees'));
+        return view('employee',compact('data'));
     }
     /**
      * Store a newly created resource in storage.

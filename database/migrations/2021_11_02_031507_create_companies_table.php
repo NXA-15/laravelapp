@@ -17,9 +17,9 @@ class CreateCompaniesTable extends Migration
             $table->bigIncrements('id');
             $table->string('name');
             $table->string('email')->unique();
-            $table->string('website',50);
+            $table->string('website');
             $table->string('address');
-            $table->string('phone_number',15);
+            $table->string('phone_number');
             $table->timestamps();
         });
     }

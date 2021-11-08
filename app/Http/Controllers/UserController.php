@@ -15,9 +15,9 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
+        $data = User::select(['id','name','email']);
         if ($request->ajax()) {
             //$data = User::latest()->get();
-            $data = User::select(['id','name','email']);
             return Datatables::of($data)
                     ->addIndexColumn()
                     ->addColumn('action', function($data) {
@@ -28,7 +28,7 @@ class UserController extends Controller
                     ->make(true);
         }
       
-        return view('user',compact('users'));
+        return view('user',compact('data'));
     }
     /**
      * Store a newly created resource in storage.

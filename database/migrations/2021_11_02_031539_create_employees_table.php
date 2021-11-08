@@ -18,10 +18,10 @@ class CreateEmployeesTable extends Migration
             $table->string('name');
             $table->string('email')->unique();
             $table->string('photo');
-            $table->string('phone_number',15);
+            $table->string('phone_number');
             $table->string('address');
-            $table->integer('company_id')->unsigned();
-            $table->foreign('company_id')->references('id')->on('company');
+            $table->unsignedBigInteger('company_id');
+            $table->foreign('company_id')->references('id')->on('companies')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
     }

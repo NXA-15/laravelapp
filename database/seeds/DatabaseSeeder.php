@@ -22,6 +22,7 @@ class DatabaseSeeder extends Seeder
 
          // Create 10 records of users
         factory(App\User::class, 10)->create();
+        $this->call(UsersTableSeeder::class);
 
     }
 }

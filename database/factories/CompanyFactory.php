@@ -4,6 +4,7 @@
 
 use App\Company;
 use App\Employee;
+use App\User;
 use Faker\Generator as Faker;
 
 $factory->define(Company::class, function (Faker $faker) {

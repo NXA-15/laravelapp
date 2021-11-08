@@ -16,9 +16,9 @@ class CompanyController extends Controller
      */
     public function index(Request $request)
     {
+        $data = Company::select(['id','name','email','website','address','phone_number']);
         if ($request->ajax()) {
             //$data = Company::latest()->get();
-            $data = Company::select(['id','name','email','website','address','phone_number']);
             return Datatables::of($data)
                     ->addIndexColumn()
                     ->addColumn('action', function($data) {
@@ -30,7 +30,7 @@ class CompanyController extends Controller
                     ->make(true);
         }
       
-        return view('company',compact('companies'));
+        return view('company',compact('data'));
     }
     /**
      * Store a newly created resource in storage.
