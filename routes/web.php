@@ -25,3 +25,9 @@ Route::resource('/employee','EmployeeController');
 Route::post('/company/getCompanies/','CompanyController@getCompanies')->name('company.getCompanies');
 Route::post('/employee/postForm','EmployeeController@postForm')->name('employee.postForm');
 
+Route::get('/alpha/getAllPost', 'AlphaController@getAllPost')->name('alpha.getAllPost');
+Route::post('/alpha/addPost','AlphaController@addPost')->name('alpha.addPost');
+Route::post('/alpha/getPostById','AlphaController@getPostById')->name('alpha.getPostById');
+Route::resource('/alpha','AlphaController');
+
+
