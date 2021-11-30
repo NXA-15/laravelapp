@@ -75,7 +75,7 @@ class getRates extends Command
                         $master_kurs->value = $nilai_satuan;
                         $master_kurs->selling_rate = str_replace(',', '.',str_replace('.', '', $selling_rate));
                         $master_kurs->buying_rate = str_replace(',', '.',str_replace('.', '', $buying_rate));
-                        $master_kurs->last_update = '2021-11-29';
+                        $master_kurs->last_update = date('d F Y');
                         if($currencyx == 'INR / IDR'){
                             $master_kurs->save();
                         }
