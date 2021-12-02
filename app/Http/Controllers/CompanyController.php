@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Yajra\Datatables\Datatables;
 use App\Company;
 use App\Rules\FQDN;
+use Illuminate\Support\Facades\DB;
 
 class CompanyController extends Controller
 {
@@ -29,7 +30,7 @@ class CompanyController extends Controller
                     ->rawColumns(['action'])
                     ->make(true);
         }
-      
+
         return view('company',compact('data'));
     }
     /**
@@ -44,11 +45,14 @@ class CompanyController extends Controller
             'address' => 'required',
             'phone_number' => 'required'
         ]);
-        
+
         if ($validator->fails()) {
             return response()->json(['errors' => $validator->errors()->all()]);
         }
 
+        DB::beginTransaction();
+
+        try{
         $company->name = $request->name;
         $company->email = $request->email;
         $company->website = $request->website;
@@ -56,7 +60,17 @@ class CompanyController extends Controller
         $company->phone_number = $request->phone_number;
         $company->save();
 
-        return response()->json(['success'=>'Company added successfully']);
+        DB::commit();
+
+        return response()->json(['info'=>'Company added successfully']);
+
+        }catch(\Exception $e){
+        DB::rollback();
+        //return response()->json(['info'=>'Something went wrong']);
+        return response()->json(['info'=>$e->getMessage()]);
+        //return $e->getMessage();
+        }
+
     }
 
     /**
@@ -105,7 +119,7 @@ class CompanyController extends Controller
             'address' => 'required',
             'phone_number' => 'required'
         ]);
-        
+
         if ($validator->fails()) {
             return response()->json(['errors' => $validator->errors()->all()]);
         }
@@ -140,13 +154,13 @@ class CompanyController extends Controller
     public function getCompanies(Request $request){
 
         $search = $request->search;
-  
+
         if($search == ''){
            $companies = Company::orderby('name','asc')->select('id','name')->limit(5)->get();
         }else{
            $companies = Company::orderby('name','asc')->select('id','name')->where('name', 'like', '%' .$search . '%')->limit(5)->get();
         }
-  
+
         $response = array();
         foreach($companies as $company){
            $response[] = array(
@@ -154,7 +168,7 @@ class CompanyController extends Controller
                 "text"=>$company->name
            );
         }
-  
+
         return response()->json($response);
      }
 
@@ -165,7 +179,7 @@ class CompanyController extends Controller
     {
         $company = new Company;
         $data = $company->findData($id);
-      
+
         return response()->json([ 'company' => $data]);
     }
 }

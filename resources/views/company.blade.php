@@ -1,7 +1,7 @@
 @extends('adminlte::page')
- 
+
 @section('title', 'Company')
- 
+
 @section('content_header')
     <h1>Companies</h1>
 @stop
@@ -9,12 +9,12 @@
 
        <div class="card">
          <div class="card-header">
-         <button class="btn btn-outline-primary" type="button"  data-toggle="modal" data-target="#CreateUserModal"> 
+         <button class="btn btn-outline-primary" type="button"  data-toggle="modal" data-target="#CreateUserModal">
                 Create New Company
             </button>
          </div>
-         
-         <div class="card-body"> 
+
+         <div class="card-body">
            <table class="table table-bordered data-table">
                 <thead>
                     <tr>
@@ -31,7 +31,7 @@
                 </tbody>
             </table>
         </div>
-   
+
 <!-- modal -------------------------------------->
 <!-- Create User Modal -->
 <div class="modal" id="CreateUserModal">
@@ -61,7 +61,7 @@
                 </div>
                 <div class="form-group">
                     <label for="email">Email:</label>
-                    <input type="enail" class="form-control" name="email" id="email" autocomplete="off">                        
+                    <input type="enail" class="form-control" name="email" id="email" autocomplete="off">
                 </div>
                 <div class="form-group">
                     <label for="name">Website:</label>
@@ -75,7 +75,7 @@
                     <label for="name">Phone:</label>
                     <input type="text" class="form-control" name="phone_number" id="phone_number">
                 </div>
-             
+
             </div>
             <!-- Modal footer -->
             <div class="modal-footer">
@@ -109,7 +109,7 @@
                     </button>
                 </div>
                 <div id="EditUserModalBody">
-                    
+
                 </div>
             </div>
             <!-- Modal footer -->
@@ -154,7 +154,7 @@
             </div>
             <!-- Modal body -->
             <div class="modal-body">
-              
+
                 <div id="DetailUserModalBody">
 
                 <b>Name:</b>
@@ -163,9 +163,9 @@
                 <p id="email-info"></p>
 
                 <b>Employee List:</b>
-                <div id="showtable"></div> 
+                <div id="showtable"></div>
 
-                                
+
                 </div>
             </div>
             <!-- Modal footer -->
@@ -178,27 +178,27 @@
 
 <!-- -------------------------------------->
 
-     
+
 @stop
 
 @section('css')
     <link href="https://cdn.datatables.net/1.10.17/css/jquery.dataTables.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet">
 @stop
- 
+
 @section('js')
 
     <script src="https://cdn.datatables.net/1.10.17/js/jquery.dataTables.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
-<script type="text/javascript">     
+<script type="text/javascript">
 $(document).ready(function() {
 
     $.ajaxSetup({
           headers: {
               'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
           }
-    }); 
+    });
 
     var table = $('.data-table').DataTable({
         processing: true,
@@ -214,11 +214,11 @@ $(document).ready(function() {
             {data: 'action', name: 'action', orderable: false, searchable: false},
         ]
     });
-     
+
 // Create company Ajax request.
         $('#SubmitCreateUserForm').click(function(e) {
             e.preventDefault();
-        
+
             $.ajax({
                 url: "{{ route('company.store') }}",
                 method: 'post',
@@ -240,7 +240,7 @@ $(document).ready(function() {
                         $('.alert-danger').hide();
                         //$('.alert-success').show();
                         $('#CreateUserModal').modal('hide');
-                        toastr.info(result.success);
+                        toastr.info(result.info);
                         table.ajax.reload();
                     }
                 }
@@ -274,7 +274,7 @@ $(document).ready(function() {
         // Update company Ajax request.
         $('#SubmitEditUserForm').click(function(e) {
             e.preventDefault();
- 
+
             $.ajax({
                 url: "company/"+id,
                 method: 'PUT',
@@ -311,7 +311,7 @@ $(document).ready(function() {
         $('#SubmitDeleteUserForm').click(function(e) {
             e.preventDefault();
             var id = deleteID;
-     
+
             $.ajax({
                 url: "company/"+id,
                 method: 'DELETE',
@@ -343,7 +343,7 @@ $(document).ready(function() {
                     $("#name-info").html(company.name);
                     $("#email-info").html(company.email);
                     $('#DetailUserModal').modal('show');
-                    
+
                     //retrive record into table
                     var op ="";
                     var cid = company.id;
@@ -369,7 +369,7 @@ $(document).ready(function() {
                         console.log("Error Occurred");
                         }
                     });
-  
+
                 }
             });
         });
