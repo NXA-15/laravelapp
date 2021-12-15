@@ -53,7 +53,7 @@ class CompanyController extends Controller
         DB::beginTransaction();
 
         try{
-        $company->name = $request->name;
+        $company->name = $request->namex;
         $company->email = $request->email;
         $company->website = $request->website;
         $company->address = $request->address;

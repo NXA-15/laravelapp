@@ -264,6 +264,11 @@ return [
             'url'  => 'employee',
             'icon' => 'fas fa-fw fa-user',
         ],
+        [
+            'text' => 'Kurs',
+            'url'  => 'kurs',
+            'icon' => 'fas fa-fw fa-dollar-sign',
+        ],
         ['header' => 'SETTING'],
         [
             'text' => 'User',
@@ -275,8 +280,8 @@ return [
             'text' => 'alpha',
             'url'  => 'alpha',
             'icon' => 'fas fa-fw fa-user',
-        ], 
-        
+        ],
+
     ],
 
     /*

@@ -21,6 +21,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::resource('/user','UserController');
 Route::resource('/company','CompanyController');
 Route::resource('/employee','EmployeeController');
+Route::resource('/kurs','KursController');
 //Route::post('/employee/getEmployees/','EmployeeController@getEmployees')->name('employee.getEmployees');
 Route::post('/company/getCompanies/','CompanyController@getCompanies')->name('company.getCompanies');
 Route::post('/employee/postForm','EmployeeController@postForm')->name('employee.postForm');
